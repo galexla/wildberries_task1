@@ -1,0 +1,337 @@
+openapi: 3.0.3
+info:
+  title: Teams API
+  version: 1.0.0
+  description: This API helps to manage teams
+paths:
+  /members/:
+    get:
+      operationId: members_list
+      description: Retrieve a list of all members.
+      tags:
+      - members
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Member'
+          description: ''
+    post:
+      operationId: members_create
+      description: Create a new member.
+      tags:
+      - members
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: ''
+        '400':
+          description: Bad Request
+  /members/{id}/:
+    get:
+      operationId: members_retrieve
+      description: Retrieve details of a specific member by ID.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - members
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: ''
+        '404':
+          description: Not Found
+    post:
+      operationId: members_create_2
+      description: Update details of a specific member by ID.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - members
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MemberRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/MemberRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/MemberRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Member'
+          description: ''
+        '400':
+          description: Bad Request
+    delete:
+      operationId: members_destroy
+      description: Delete a specific member by ID.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - members
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+  /teams/:
+    get:
+      operationId: teams_list
+      description: Retrieve a list of all teams.
+      tags:
+      - teams
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Team'
+          description: ''
+    post:
+      operationId: teams_create
+      description: Create a new team.
+      tags:
+      - teams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: ''
+        '400':
+          description: Bad Request
+  /teams/{id}/:
+    get:
+      operationId: teams_retrieve
+      description: Retrieve details of a specific team by ID.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - teams
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: ''
+        '404':
+          description: Not Found
+    post:
+      operationId: teams_create_2
+      description: Update details of a specific team by ID.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - teams
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TeamRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Team'
+          description: ''
+        '400':
+          description: Bad Request
+    delete:
+      operationId: teams_destroy
+      description: Delete a specific team by ID.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - teams
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+components:
+  schemas:
+    Member:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+          maxLength: 400
+        position:
+          type: string
+          maxLength: 400
+        team_id:
+          type: integer
+          minimum: 1
+      required:
+      - name
+      - position
+    MemberRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+          minLength: 1
+          maxLength: 400
+        position:
+          type: string
+          minLength: 1
+          maxLength: 400
+        team_id:
+          type: integer
+          minimum: 1
+      required:
+      - name
+      - position
+    Team:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+          maxLength: 400
+      required:
+      - name
+    TeamRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        name:
+          type: string
+          minLength: 1
+          maxLength: 400
+      required:
+      - name
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
